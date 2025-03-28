@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
+import Loading from "../components/loading-show";
+import ErrorMessage from "../components/error-show";
 
 interface User {
   first_name: string;
@@ -23,6 +26,7 @@ const EditUser: React.FC = () => {
         setLoading(false);
       } catch (err) {
         setError("Failed to load user data.");
+        toast.error("Failed to load user data.");
         setLoading(false);
       }
     };
@@ -33,50 +37,53 @@ const EditUser: React.FC = () => {
     e.preventDefault();
     try {
       await axios.put(`https://reqres.in/api/users/${id}`, user);
-      alert("User updated successfully!");
+      toast.success("User updated successfully!");
       navigate("/users");
     } catch (err) {
       setError("Failed to update user.");
+      toast.error("Failed to update user.");
     }
   };
 
-  if (loading) return <p className="text-center">Loading...</p>;
-  if (error) return <p className="text-red-500 text-center">{error}</p>;
+  if (loading) return <Loading />;
+  if (error) return <ErrorMessage message={error} />;
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex justify-center items-center h-screen bg-gradient-to-br from-gray-100 to-gray-300 p-4">
       <form
         onSubmit={handleUpdate}
-        className="bg-white p-6 rounded-lg shadow-md w-80"
+        className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md space-y-4"
       >
-        <h2 className="text-2xl font-bold mb-4">Edit User</h2>
-        <input
-          type="text"
-          placeholder="First Name"
-          value={user.first_name}
-          onChange={(e) => setUser({ ...user, first_name: e.target.value })}
-          className="w-full px-3 py-2 border rounded mb-2"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          value={user.last_name}
-          onChange={(e) => setUser({ ...user, last_name: e.target.value })}
-          className="w-full px-3 py-2 border rounded mb-2"
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-          className="w-full px-3 py-2 border rounded mb-4"
-          required
-        />
+        <h2 className="text-3xl font-bold text-gray-700 text-center">Edit User</h2>
+        <div className="space-y-2">
+          <input
+            type="text"
+            placeholder="First Name"
+            value={user.first_name}
+            onChange={(e) => setUser({ ...user, first_name: e.target.value })}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={user.last_name}
+            onChange={(e) => setUser({ ...user, last_name: e.target.value })}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={user.email}
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            required
+          />
+        </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all"
         >
           Update User
         </button>
