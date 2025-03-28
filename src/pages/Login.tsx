@@ -25,10 +25,10 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#00011c]">
+    <div className="flex justify-center items-center h-screen">
       <form
         onSubmit={handleLogin}
-        className="bg-white p-6 rounded-lg shadow-md w-80"
+        className="bg-white/10 p-6 rounded-lg shadow-md w-80"
       >
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
@@ -37,7 +37,7 @@ const Login: React.FC = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-3 py-2 border rounded mb-2"
+          className="w-full bg-white/20 px-3 py-2 border rounded mb-2"
           required
         />
         <input
@@ -45,12 +45,12 @@ const Login: React.FC = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-3 py-2 border rounded mb-4"
+          className="w-full bg-white/20 px-3 py-2 border rounded mb-4"
           required
         />
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+          className="w-full bg-blue-500/60 text-white py-2 rounded hover:bg-blue-600"
         >
           Login
         </button>
