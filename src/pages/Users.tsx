@@ -1,6 +1,9 @@
 import React, { lazy, Suspense, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchUsers from "../hooks/use-fetcher";
+import Loading from "../components/loading-show";
+import ErrorMessage from "../components/error-show";
+
 const UserCard = lazy(() => import("../components/user-card"));
 
 export interface User {
@@ -10,7 +13,6 @@ export interface User {
   avatar: string;
 }
 
-
 const Users: React.FC = () => {
   const [page, setPage] = useState(1);
   const { users, totalPages, handleDelete, error, loading } = useFetchUsers(page);
@@ -18,30 +20,36 @@ const Users: React.FC = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4">User List</h2>
-      {error && <p className="text-red-500">Error: {error}</p>}
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">User List</h2>
+
+      {error && <ErrorMessage message={error} />}
+
       {loading ? (
-        <p className="text-center">Loading...</p>
+        <Loading />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Suspense fallback={<p className='text-center'>Loading users...</p>}>
+        <Suspense fallback={<Loading />}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {users.map((user) => (
               <UserCard key={user.id} user={user} handleDelete={handleDelete} navigate={navigate} />
             ))}
-          </Suspense>
-        </div>
+          </div>
+        </Suspense>
       )}
-      <div className="flex justify-center mt-4">
+
+      {/* Pagination */}
+      <div className="flex justify-center mt-6 space-x-4">
         <button
-          className="px-4 py-2 bg-gray-300 rounded mr-2 disabled:opacity-50"
+          className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg shadow-md hover:bg-gray-300 transition disabled:opacity-50"
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
         >
           Previous
         </button>
-        <span className="px-4 py-2">Page {page} of {totalPages}</span>
+        <span className="px-6 py-3 text-lg font-semibold text-gray-700">
+          Page {page} of {totalPages}
+        </span>
         <button
-          className="px-4 py-2 bg-gray-300 rounded ml-2 disabled:opacity-50"
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition disabled:opacity-50"
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={page === totalPages}
         >

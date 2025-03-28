@@ -7,11 +7,14 @@ import "./index.css"
 import { Toaster } from "react-hot-toast";
 
 const App: React.FC = () => {
+  const isAuthenticated = () => {
+    return !!localStorage.getItem("token"); // Change this logic if needed
+  };
   return (
     <Router>
       <Toaster position="top-center" />
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Navigate to={isAuthenticated() ? "/users" : "/login"} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/users" element={<Users />} />
         <Route path="/edit/:id" element={<EditUser />} />

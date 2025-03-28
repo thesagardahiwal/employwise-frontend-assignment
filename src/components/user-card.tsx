@@ -12,7 +12,7 @@ interface UserCardProps {
   const UserCard: React.FC<UserCardProps> = ({ user, handleDelete, navigate }) => {
     return (
       <div className="bg-white p-4 rounded-lg shadow-md">
-        <img src={user.avatar} alt={user.first_name} className="w-20 h-20 rounded-full mx-auto mb-2" />
+        <img src={user.avatar} alt={user.first_name} className="w-20 h-20 object-cover rounded-full mx-auto mb-2" />
         <h3 className="text-lg font-semibold text-center">{user.first_name} {user.last_name}</h3>
         <div className="flex justify-center mt-2">
           <button
