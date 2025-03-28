@@ -20,7 +20,7 @@ const Users: React.FC = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">User List</h2>
+      <h2 className="text-3xl font-bold text-center mb-6">User List</h2>
 
       {error && <ErrorMessage message={error} />}
 
@@ -45,11 +45,11 @@ const Users: React.FC = () => {
         >
           Previous
         </button>
-        <span className="px-6 py-3 text-lg font-semibold text-gray-700">
+        <span className="px-6 py-3 text-lg font-semibold">
           Page {page} of {totalPages}
         </span>
         <button
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition disabled:opacity-50"
+          className="px-6 py-3 bg-blue-600/70 text-white rounded-lg shadow-md hover:bg-blue-700 transition disabled:opacity-50"
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={page === totalPages}
         >
