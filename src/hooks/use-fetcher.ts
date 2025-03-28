@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { User } from "../pages/Users";
+import toast from "react-hot-toast";
 
 const useFetchUsers = (page: number) => {
   const [users, setUsers] = useState<User[]>([]);
@@ -29,9 +30,10 @@ const useFetchUsers = (page: number) => {
     try {
       await axios.delete(`https://reqres.in/api/users/${id}`);
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
-      alert("User deleted successfully!");
+      toast.success("User deleted successfully!");
     } catch (error) {
       setError("Error deleting user");
+      toast.error("Error deleting user")
     }
   };
 

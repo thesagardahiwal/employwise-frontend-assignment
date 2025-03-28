@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("eve.holt@reqres.in");
@@ -19,6 +20,7 @@ const Login: React.FC = () => {
       navigate("/users");
     } catch (err) {
       setError("Invalid credentials. Please try again.");
+      toast.error("Invalid credentials. Please try again.")
     }
   };
 

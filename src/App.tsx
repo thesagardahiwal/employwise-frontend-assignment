@@ -4,10 +4,12 @@ import Login from "./pages/Login";
 import Users from "./pages/Users";
 import EditUser from "./pages/EditUser";
 import "./index.css"
+import { Toaster } from "react-hot-toast";
 
 const App: React.FC = () => {
   return (
     <Router>
+      <Toaster position="top-center" />
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
